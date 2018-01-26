@@ -2,3 +2,12 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+#centered-form{
+    margin: 0px auto;
+    width: 40%;
+}
+
+.margin-down-20{
+    margin-bottom: 30px;
+}
