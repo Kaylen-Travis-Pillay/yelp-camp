@@ -1,0 +1,12 @@
+<% include partials/head_btitle %>
+<title>YelpCamp | New Campground | Kaylen Travis Pillay</title>
+<% include partials/head_atitle %>
+<h1>New Campground</h1>
+<form action="/campgrounds" method="POST">
+    <input type="text" placeholder="title" name="title">
+    <input type="text" placeholder="image url" name="image">
+    <button>Submit</button>
+</form>
+
+<a href="/campgrounds">Go Back</a>
+<% include partials/footer %>
