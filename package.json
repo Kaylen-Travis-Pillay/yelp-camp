@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Kaylen-Travis-Pillay/yelp-camp/issues"
   },
-  "homepage": "https://github.com/Kaylen-Travis-Pillay/yelp-camp#readme"
+  "homepage": "https://github.com/Kaylen-Travis-Pillay/yelp-camp#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
