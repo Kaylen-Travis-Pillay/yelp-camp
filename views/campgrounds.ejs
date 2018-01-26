@@ -2,3 +2,9 @@
 <p>This is where the campgrounds will be displayed.</p>
 
 <!-- Display of the campgrounds -->
+<% campgrounds.forEach(function(camp){ %>
+    <div>
+        <h3><%= camp.title %></h3>
+        <img src="<%= camp.image %>" alt="campground-image-unavailable">
+    </div>
+<% }) %>
