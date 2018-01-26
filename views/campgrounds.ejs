@@ -2,17 +2,30 @@
 <title>YelpCamp | Campgrounds | Kaylen Travis Pillay</title>
 <% include partials/head_atitle %>
 
-<h1>Campgrounds</h1>
-<p>This is where the campgrounds will be displayed.</p>
-
-<a href="/campgrounds/new">Add a new campground</a>
-
-<!-- Display of the campgrounds -->
-<% campgrounds.forEach(function(camp){ %>
-    <div>
-        <h3><%= camp.title %></h3>
-        <img src="<%= camp.image %>" alt="campground-image-unavailable">
+<div class="container">
+    <header class="jumbotron">
+        <div class="container text-center">
+            <h1>Welcome to YelpCamp!</h1>
+            <p>View our campgrounds from all over the world</p>
+            <a href="/campgrounds/new" class="btn btn-primary btn-lg">Add a new campground</a>
+        </div>
+    </header>
+    <!-- Display of the campgrounds -->
+    <div class="row" id="campground-display">
+        <% campgrounds.forEach(function(camp){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= camp.image %>" alt="campground-image-unavailable">
+                    <div class="caption text-center">
+                        <h4>
+                            <%= camp.title %>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
     </div>
-<% }) %>
+    
+</div>
 
 <% include partials/footer %>
