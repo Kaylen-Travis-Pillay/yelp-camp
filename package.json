@@ -1,0 +1,27 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "Final project for web dev course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaylen-Travis-Pillay/yelp-camp.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "ejs",
+    "express",
+    "yelp-camp",
+    "web",
+    "dev"
+  ],
+  "author": "Kaylen Travis Pillay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kaylen-Travis-Pillay/yelp-camp/issues"
+  },
+  "homepage": "https://github.com/Kaylen-Travis-Pillay/yelp-camp#readme"
+}
