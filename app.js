@@ -37,7 +37,12 @@ app.get("/campgrounds/new", function(req, res){
     res.render("new_campground");
 });
 
-// Start server
-app.listen(3000, function(){
-    console.log("yelp-camp server started");
+// Start server on local machine
+// app.listen(3000, function(){
+//     console.log("yelp-camp server started");
+// });
+
+// Starting server on c9.io
+app.listen(process.env.PORT, process.env.IP, function(){
+   console.log("yelp-camp server has started"); 
 });
