@@ -1,6 +1,9 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+
+// mongoose.connect("mongodb://localhost/yelpCampDB");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
@@ -38,11 +41,11 @@ app.get("/campgrounds/new", function(req, res){
 });
 
 // Start server on local machine
-// app.listen(3000, function(){
-//     console.log("yelp-camp server started");
-// });
-
-// Starting server on c9.io
-app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("yelp-camp server has started"); 
+app.listen(3000, function(){
+    console.log("yelp-camp server started");
 });
+
+// // Starting server on c9.io
+// app.listen(process.env.PORT, process.env.IP, function(){
+//    console.log("yelp-camp server has started"); 
+// });
