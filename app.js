@@ -3,17 +3,20 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-// mongoose.connect("mongodb://localhost/yelpCampDB");
+mongoose.connect("mongodb://localhost/yelp_camp");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-var campgrounds = [
-    { title: "Durban", image: "http://visitmckenzieriver.com/oregon/wp-content/uploads/2015/06/paradise_campground.jpg" },
-    { title: "Johannesburg", image: "http://www.nationalparks.nsw.gov.au/~/media/45A30E448BED4691A5E6F0553EE023B5.ashx" },
-    { title: "Capetown", image: "https://i.pinimg.com/originals/ab/5e/c4/ab5ec4ff722b1f65b855af71ba78c6fc.jpg" }
-];
+// Schema setup, TODO: Refactor this later
+var campgroundSchema = new mongoose.Schema({
+    title: String,
+    image: String
+});
+
+// Model setup, TODO: Refactor this later
+var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Routes
 app.get("/", function(req, res){
@@ -21,7 +24,16 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
-    res.render("campgrounds", {campgrounds: campgrounds});
+    // Get all campgrounds from the database
+    Campground.find({}, function(err, campgrounds) {
+        if(err){
+            console.log(err);
+            res.redirect("/");
+        }else{
+            res.render("campgrounds", { campgrounds: campgrounds });
+        }
+    });
+    
 });
 
 app.post("/campgrounds", function(req, res){
@@ -32,8 +44,13 @@ app.post("/campgrounds", function(req, res){
         image: image
     };
 
-    campgrounds.push(new_campground);
-    res.redirect("/campgrounds");
+    Campground.create(new_campground, function(err, campground){
+        if(err){
+            res.redirect("/");
+        }else{
+            res.redirect("/campgrounds");
+        }
+    });
 });
 
 app.get("/campgrounds/new", function(req, res){
