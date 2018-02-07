@@ -2,13 +2,18 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var seed_db = require("./db_seed/seeds");
+
+// Seeding the database
+seed_db();
 
 // Models for MongoDB used in yelp-camp
 var Campground = require("./models/campgrounds");
+var Comment = require("./models/comments");
 // ============================================================== //
 
 // App config
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_camp_v4");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -59,7 +64,7 @@ app.get("/campgrounds/new", function(req, res){
 
 // RESTful Route -> SHOW: Shows a single campground based on id param
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, campground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, campground){
         if(err){
             console.log("Error: ", err);
         }else{
