@@ -3,21 +3,15 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+// Models for MongoDB used in yelp-camp
+var Campground = require("./models/campgrounds");
+// ============================================================== //
 
+// App config
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-
-// Schema setup, TODO: Refactor this later
-var campgroundSchema = new mongoose.Schema({
-    title: String,
-    image: String,
-    description: String
-});
-
-// Model setup, TODO: Refactor this later
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Routes
 app.get("/", function(req, res){
