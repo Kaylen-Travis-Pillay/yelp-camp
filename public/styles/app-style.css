@@ -11,3 +11,8 @@
 .margin-down-20{
     margin-bottom: 30px;
 }
+
+.thumbnail img{
+    width: 100%;
+    padding: 0;
+}
