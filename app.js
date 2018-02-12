@@ -15,12 +15,18 @@ seed_db();
 var Campground = require("./models/campgrounds");
 var Comment = require("./models/comments");
 var User = require("./models/users");
+
+// Routes
+var campground_routes = require("./routes/campground");
 // ============================================================== //
 
 // App config
 mongoose.connect("mongodb://localhost/yelp_camp_v4");
+
 app.use(bodyParser.urlencoded({extended: true}));
+app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+
 app.use(express_session({
     secret: "thiisiistthesseccreettethatisusedforsessionencryption",
     resave: false,
@@ -31,67 +37,18 @@ app.use(passport.session());
 passport.use(new passport_local(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.set("view engine", "ejs");
+
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();
 });
 
+app.use("/campgrounds", campground_routes);
+
 // Routes
 app.get("/", function(req, res){
     res.render("landing");
 });
-
-// RESTful Route -> INDEX: lists all the campgrounds
-app.get("/campgrounds", function(req, res){
-    // Get all campgrounds from the database
-    Campground.find({}, function(err, campgrounds) {
-        if(err){
-            console.log(err);
-            res.redirect("/");
-        }else{
-            res.render("index", { campgrounds: campgrounds });
-        }
-    });
-    
-});
-
-// RESTful Route -> CREATE: Creates a campground and redirects to the INDEX route
-app.post("/campgrounds", function(req, res){
-    var title = req.body.title;
-    var image = req.body.image;
-    var descr = req.body.descr;
-    var new_campground = {
-        title: title,
-        image: image,
-        description: descr
-    };
-
-    Campground.create(new_campground, function(err, campground){
-        if(err){
-            res.redirect("/");
-        }else{
-            res.redirect("/campgrounds");
-        }
-    });
-});
-
-// RESTful Route -> NEW: Displays the form for creating a campground
-app.get("/campgrounds/new", function(req, res){
-    res.render("new_campground");
-});
-
-// RESTful Route -> SHOW: Shows a single campground based on id param
-app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id).populate("comments").exec(function(err, campground){
-        if(err){
-            console.log("Error: ", err);
-        }else{
-            res.render("show", {campground: campground});
-        }
-    });
-});
-
 // =====================
 // Comments ROUTE
 // =====================
